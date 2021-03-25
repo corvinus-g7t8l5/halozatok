@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>g7t8l5 hajo.html</title>
+    <script src="hetedik.js"></script>
     <link rel="stylesheet" href="hajo.css">
 </head>
 
@@ -17,17 +18,17 @@
 
         <div id="kerdes__main">
             <div id="kerdes__valasz">
-                <div id="valasz1" class="gomb jo">Válasz 1</div>
-                <div id="valasz2" class="gomb rossz">Válasz 2</div>
-                <div id="valasz3" class="gomb">Válasz 3</div>
+                <div id="valasz1" class="gomb" onclick="helyese(1)">Válasz 1</div>
+                <div id="valasz2" class="gomb" onclick="helyese(2)">Válasz 2</div>
+                <div id="valasz3" class="gomb" onclick="helyese(3)">Válasz 3</div>
             </div>
             <div id="kerdes-kep">
                 <img id="kep1" src="https://szoft1.comeback.hu/hajo/teszt-0050.jpg" />
             </div>
         </div>
         <div id="kerdes__nav">
-            <div class="gomb">Vissza</div>
-            <div class="gomb">Előre</div>
+            <div class="gomb" onclick="prev()">Vissza</div>
+            <div class="gomb" onclick="next()">Előre</div>
         </div>
     </div>
 

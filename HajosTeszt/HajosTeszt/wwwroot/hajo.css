@@ -39,7 +39,7 @@ div {
 
 .gomb {
     padding: 20px;
-    width: 150px;
+    width: auto;
     text-align: center;
     cursor: pointer;
     background-color: cadetblue;
@@ -67,4 +67,12 @@ div {
         padding: 0;
         margin: 0;
     }
+}
+
+.jó {
+    background-color: green !important
+}
+
+.rossz {
+    background-color: red !important
 }
