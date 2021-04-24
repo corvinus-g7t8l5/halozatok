@@ -1,45 +1,51 @@
-﻿var kérdések;
-var a = 0;
+﻿var id = 1;
+var helyesvalasz = 0;
 
 window.onload = letöltés();
     
 function letöltés() {
-    fetch('/questions.json')
+    fetch(`/questions/${id}`)
         .then(response => response.json())
-        .then(data => letöltésBefejeződött(data)
+        .then(data => kérdésMegjelenítés(data)
     );
-}
-
-function letöltésBefejeződött(k) {
-    console.log("Sikeres letöltés");
-    console.log(k);
-    kérdések = k;
-    kérdésMegjelenítés(kérdések);
 }
 
 function kérdésMegjelenítés(kérdés) {
     let x = document.getElementById("kerdes-szoveg");
-    x.innerText = kérdés[a].questionText;
+    x.innerText = kérdés.questionText;
 
 
     let y = document.getElementById("valasz" + 1);
-    y.innerText = kérdés[a].answer1;
+    y.innerText = kérdés.answer1;
     y = document.getElementById("valasz" + 2);
-    y.innerText = kérdés[a].answer2;
+    y.innerText = kérdés.answer2;
     y = document.getElementById("valasz" + 3);
-    y.innerText = kérdés[a].answer3;
+    y.innerText = kérdés.answer3;
 
     let z = document.getElementById("kep1");
-    if (kérdés[a].image != "") {
-        z.src = "https://szoft1.comeback.hu/hajo/" + kérdés[a].image;
-    } else { z.src = ""}
+    if (kérdés.image != "") {
+        z.src = "https://szoft1.comeback.hu/hajo/" + kérdés.image;
+    } else { z.src = "" }
+    helyesvalasz = kérdés.correctAnswer;
     
 }
+function kérdésBetöltés(id) {
+    fetch(`/questions/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                console.error(`Hibás válasz: ${response.status}`)
+            }
+            else {
+                return response.json()
+            }
+        })
+        .then(data => kérdésMegjelenítés(data));
+}    
 
 function next() {
-    a++;
-    if (a == kérdések.length) a = 0;
-    kérdésMegjelenítés(kérdések);
+    id++;
+    kérdésBetöltés(id);
+
     for (var i = 1; i < 4; i++) {
         var x = document.getElementById("valasz" + i);
         x.classList.remove("rossz");
@@ -48,13 +54,18 @@ function next() {
 }
 
 function prev() {
-    a--;
-    if (a < 0) a = kérdések.length - 1;
-    kérdésMegjelenítés(kérdések);
+    if (id > 1) {
+        id--;
+    } else {}
+    kérdésBetöltés(id);
+    for (var i = 1; i < 4; i++) {
+        var x = document.getElementById("valasz" + i);
+        x.classList.remove("rossz");
+        x.classList.remove("jó");
+    }
 }
 
 function helyese(n) {
     var x = document.getElementById("valasz" + n);
-    if (kérdések[a].correctAnswer == n) { x.classList.add("jó"); } else { x.classList.add("rossz"); }
-    //if (kérdések[a].correctAnswer == n) { x.style.background = "green"; } else { x.style.background = "red"; }
+    if (helyesvalasz == n) { x.classList.add("jó"); } else { x.classList.add("rossz"); }
 }
