@@ -14,6 +14,7 @@ namespace szamhalGY.Controllers
     {
         [HttpGet]
         [Route("questions/{sorszám}")]
+
         public ActionResult M2(int sorszám)
         {
             HajostesztContext context = new HajostesztContext();
@@ -24,6 +25,16 @@ namespace szamhalGY.Controllers
             if (kérdés == null) return BadRequest("Nincs ilyen sorszámú kérdés");
 
             return new JsonResult(kérdés);
+        }
+
+        [HttpGet]
+        [Route("questions/count")]
+        public int M4() //Tetszőleges metódusnév
+        {
+            HajostesztContext context = new HajostesztContext();
+            int kérdésekSzáma = context.Questions.Count();
+
+            return kérdésekSzáma;
         }
     }
 }
