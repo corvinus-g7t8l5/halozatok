@@ -1,78 +1,67 @@
-﻿* {
+﻿*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-div {
-    margin: 10px;
+body {
+    background: #e5ceff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
 }
-
-#kerdes__body {
-    background-color: azure;
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+#külső{
+    margin: 15px;
 }
-
-#kerdes-szoveg {
-    padding: 25px;
-    font-weight: bolder;
-    font-size: 24px;
+#kérdés_szöveg{
+    text-align:center;
+    margin: 15px auto;
+    max-width: 900px;
 }
-
-#kerdes__main {
+#középső {
+    max-width:900px;
+    margin: 30px auto;
     display: flex;
     flex-grow: 1;
 }
-
-#kerdes__nav {
-    display: flex;
-    justify-content: space-between;
-}
-
-#kerdes__valasz {
+#válaszok {
     flex-grow: 1;
     flex-shrink: 1;
 }
-
 .gomb {
-    padding: 20px;
-    width: auto;
-    text-align: center;
+    margin: 0 0 25px 0;
+    display: block;
+    padding: 18px 26px;
+    outline: none;
+    box-shadow: 8px 8px #909090;
+    background-color: yellow;
+    border: none;
+}
+.gomb:active {
+    box-shadow: 5px 5px #808080;
+    transform: translateY(3px) translateX(3px);
+    background-color: #fdd41b;
+}
+.gomb:hover {
+    background-color: #ffea00;
+}
+#kép {
+    margin-left: 25px;
+}
+#vezérlő {
+    max-width: 900px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-between;
+}
+.kattintható {
     cursor: pointer;
-    background-color: cadetblue;
-    color: white;
-    font-weight: bold;
 }
-
-    .gomb:hover {
-        background-color: black;
-    }
-/*.jo{background:lightgreen;}
-.rossz{background:red;}*/
-#kep1 {
-    margin: 10px;
-    overflow: hidden;
-}
-
-@media only screen and (max-width: 940px) {
-    #kerdes__main {
-        flex-direction: column;
-    }
-
-    #kep1 {
-        max-width: 100%;
-        padding: 0;
-        margin: 0;
-    }
-}
-
 .jó {
-    background-color: green !important
+    background: green;
+}
+.rossz {
+    background: red;
 }
 
-.rossz {
-    background-color: red !important
-}
+
+
+

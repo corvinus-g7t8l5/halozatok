@@ -1,0 +1,78 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+div {
+    margin: 10px;
+}
+
+#kerdes__body {
+    background-color: azure;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#kerdes-szoveg {
+    padding: 25px;
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+#kerdes__main {
+    display: flex;
+    flex-grow: 1;
+}
+
+#kerdes__nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+#kerdes__valasz {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.gomb {
+    padding: 20px;
+    width: auto;
+    text-align: center;
+    cursor: pointer;
+    background-color: cadetblue;
+    color: white;
+    font-weight: bold;
+}
+
+    .gomb:hover {
+        background-color: black;
+    }
+/*.jo{background:lightgreen;}
+.rossz{background:red;}*/
+#kep1 {
+    margin: 10px;
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 940px) {
+    #kerdes__main {
+        flex-direction: column;
+    }
+
+    #kep1 {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.jó {
+    background-color: green !important
+}
+
+.rossz {
+    background-color: red !important
+}
