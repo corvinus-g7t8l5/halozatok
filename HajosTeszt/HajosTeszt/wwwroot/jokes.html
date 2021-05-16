@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form>
+        <!--<button id="prev">prev</button>
+        <button id="next">next</button>-->
+        <div>
+            <input id="jokeText" type="text" placeholder="Csak PC vicc" />
+        </div>
+        <button id="addButton">Új vicc felvétele</button>
+        <div id="jokeList"></div>
+    </form>
+    <script>
+        document.getElementById("addButton").addEventListener("click", () => {
+
+            //Ezt az objektumot fogjuk átküldeni
+            let data = {
+                jokeText: document.getElementById("jokeText").value
+            }
+
+
+            fetch("api/jokes",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).then(x => {
+                    if (x.ok) {
+                        alert("Siker");
+
+                    }
+                    else {
+                        alert("Kudarc");
+                    }
+                });
+
+        });
+
+        /*document.getElementById("next").addEventListener("click", next);
+        document.getElementById("prev").addEventListener("click", prev);
+
+        var id = 1;
+        window.onload = letöltés();
+        function letöltés() {
+            fetch(`/api/jokes/${id}`)
+                .then(response => response.json())
+                .then(data => kérdésMegjelenítés(data)
+                );
+        }
+        function kérdésMegjelenítés(kérdés) {
+            let x = document.getElementById("jokeList");
+            x.innerText = kérdés.jokeText;
+        }
+
+        function next() { id++; letöltés(id); console.log(id) }
+        function prev() { id--; letöltés(id); }
+
+        nem működik,nem tudom miért :((*/
+
+        window.onload = lista();
+        function lista() {
+            fetch('/api/jokes')
+                .then(response => response.json())
+                .then(data => kiir(data));
+            function kiir(lista) {
+                console.log(lista);
+                for (var i = 0; i < lista.length; i++) {
+                    let ujElem = document.createElement("div");
+                    ujElem.innerText = lista[i].jokeText;
+                    document.getElementById("jokeList").appendChild(ujElem);
+                }
+            }
+        }
+
+        //ez mukodik
+
+    </script>
+</body>
+</html>
