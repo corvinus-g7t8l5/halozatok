@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<!--
+
+    adatbazis:
+
+    CREATE TABLE [dbo].[Auto] (
+    [AutoSK] INT            IDENTITY (1, 1) NOT NULL,
+    [Name]   NVARCHAR (255) NOT NULL,
+    CONSTRAINT [PK_Auto] PRIMARY KEY CLUSTERED ([AutoSK] ASC)
+    );
+
+
+    SET IDENTITY_INSERT [dbo].[Auto] ON
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (2, N'Mercedes-Benz')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (5, N'Toyota')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (6, N'Volkswagen')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (7, N'Ford')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (8, N'Nissan')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (9, N'Honda')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (10, N'Porsche')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (11, N'Volvo')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (15, N'Aston Martin')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (17, N'Land Rover')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (18, N'Jeep')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (19, N'Subaru')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (20, N'Bentley')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (21, N'Mazda')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (22, N'Pontiac')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (23, N'Alfa Romeo')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (63, N'Kia')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (64, N'Lada')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (65, N'Trabant')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (66, N'Moszkvics')
+    INSERT INTO [dbo].[Auto] ([AutoSK], [Name]) VALUES (67, N'Teszt autó')
+    SET IDENTITY_INSERT [dbo].[Auto] OFF
+
+-->
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+        }
+
+        a {
+            color: black;
+        }
+
+        form {
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: lightgray;
+            margin: 25px auto;
+            border: 5px dotted orange;
+        }
+
+        .gomb {
+            width: 200px;
+            margin: 0 0 25px 0;
+            display: block;
+            padding: 18px 26px;
+            outline: none;
+            box-shadow: 8px 8px #909090;
+            background-color: orange;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            .gomb:active {
+                box-shadow: 5px 5px #808080;
+                transform: translateY(3px) translateX(3px);
+                background-color: #fdd41b;
+            }
+
+            .gomb:hover {
+                background-color: #ffea00;
+            }
+
+        #Name {
+            width: 200px;
+            height: 30px;
+            border: 2px solid orange;
+            background-color: white;
+            font-size: 16px;
+            margin-bottom: 10px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        #NameDel {
+            width: 200px;
+            height: 30px;
+            border: 2px solid orange;
+            background-color: white;
+            font-size: 16px;
+            margin-bottom: 10px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        #autoList {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-bottom: 25px;
+        }
+
+        .linkek {
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <div>
+            <input id="Name" type="text" placeholder="Új autó neve" />
+        </div>
+        <button id="addButton" class="gomb">Új autó felvétele</button>
+        <div id="autoList"></div>
+        <div>
+            <input id="NameDel" type="text" placeholder="Törlendő autó id-je" />
+        </div>
+        <button id="deleteButton" class="gomb">Autó törlése</button>
+        <div class="linkek">
+            <p><a href="./api/autok/count">Rekordok száma</a></p>
+            <p><a href="./api/autok/">Összes rekord</a></p>
+            <p><a href="./api/autok/2">Rekord kulcs alapján</a></p>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById("addButton").addEventListener("click", () => {
+
+            let data = {
+                name: document.getElementById("Name").value
+            }
+
+
+            fetch("api/autok",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).then(x => {
+                    if (x.ok) {
+                        alert("Siker");
+                    }
+                    else {
+                        alert("Kudarc");
+                    }
+                });
+
+        });
+
+        /*document.getElementById("deleteButton").addEventListener("click", () => {
+            let b = document.getElementById("NameDel").value;
+            fetch(`api/autok/${b}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: null
+                })
+        });*/
+
+
+        document.getElementById("deleteButton").addEventListener("click", () => {
+            let b = document.getElementById("NameDel").value;
+            fetch(`/api/autok/${b}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: null
+                })
+        });
+
+        window.onload = lista();
+        function lista() {
+            fetch('/api/autok')
+                .then(response => response.json())
+                .then(data => kiir(data));
+            function kiir(lista) {
+                console.log(lista);
+                for (var i = 0; i < lista.length; i++) {
+                    let ujElem = document.createElement("div");
+                    ujElem.innerText = lista[i].name;
+                    document.getElementById("autoList").appendChild(ujElem);
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
